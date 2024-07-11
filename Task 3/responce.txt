@@ -1,0 +1,10 @@
+1. How can we design the system in a way that every Company will be able to serve games on their gaming site from their domain?
+Design a multi-tenant architecture: Each company will have a unique domain mapped to a tenant ID. Implement domain-to-tenant mapping and update the application to handle requests based on the domain name.
+
+2. What modification should be done to the users table at gPlatform to support this change?
+
+Add a tenant ID column: Modify the users table to include a tenant_id to support multi-tenancy. Ensure that the combination of email and tenant ID is unique.
+
+3.Considering we have 1 backend cluster that serves all companies, how can we validate a user login on one gaming domain in such a way that it does not give access to a different gaming domain? (i.e. authenticating on site A, grants access to site A only)
+
+We can Use tenant ID for authentication, Extract the tenant ID from the domain during login, and validate the user credentials against the users table with the matching tenant ID. Include the tenant ID in the session or token to ensure access is restricted to the correct domain.
